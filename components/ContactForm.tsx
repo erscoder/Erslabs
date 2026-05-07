@@ -25,8 +25,7 @@ export function ContactForm() {
       })
       const json = await res.json()
       if (json.success) {
-        setStatus('success')
-        form.reset()
+        window.location.href = '/thankyou'
       } else {
         setStatus('error')
       }
