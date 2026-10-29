@@ -2,7 +2,7 @@ import { Header } from '@/components/Header'
 import { Hero } from '@/components/Hero'
 import { Services } from '@/components/Services'
 import { Process } from '@/components/Process'
-import { CaseStudy } from '@/components/CaseStudy'
+import { Projects } from '@/components/Projects'
 import { TechStack } from '@/components/TechStack'
 import { WhyUs } from '@/components/WhyUs'
 import { ContactForm } from '@/components/ContactForm'
@@ -15,7 +15,7 @@ export default function Home() {
       <Hero />
       <Services />
       <Process />
-      <CaseStudy />
+      <Projects />
       <TechStack />
       <WhyUs />
       <ContactForm />

@@ -16,7 +16,7 @@ export function Footer() {
           <nav className="flex items-center gap-8 text-sm text-slate-500">
             <a href="#services" className="hover:text-brand-400 transition-colors">Services</a>
             <a href="#process" className="hover:text-brand-400 transition-colors">Process</a>
-            <a href="#case-study" className="hover:text-brand-400 transition-colors">Case Study</a>
+            <a href="#projects" className="hover:text-brand-400 transition-colors">Projects</a>
             <a href="#contact" className="hover:text-brand-400 transition-colors">Contact</a>
           </nav>
 

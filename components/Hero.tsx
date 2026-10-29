@@ -85,7 +85,7 @@ export function Hero() {
             <ArrowRight className="ml-2 w-4 h-4 inline-block transition-transform group-hover:translate-x-1" />
           </a>
           <a
-            href="#case-study"
+            href="#projects"
             className="px-8 py-3.5 border border-space-600 hover:border-brand-500/50 text-slate-300 hover:text-white font-medium rounded-lg transition-all"
           >
             See Recent Work
