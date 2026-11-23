@@ -178,7 +178,7 @@ export default function Home() {
         <section id="f1" data-scene="F1 ULTIMATE" className="scene scene-l">
           <div className="col">
             <p className="tag">
-              <span>02</span> Lab product · No public URL yet
+              <span>02</span> Lab product · Playable online
             </p>
             <h2>
               F1 ULTIMATE. <strong>A Formula 1 simulator in a browser tab.</strong>
@@ -205,6 +205,9 @@ export default function Home() {
               The circuit beside this text is a sketch drawn for this page: 22 cars on a small lap simulation.
               It is not footage of the game.
             </p>
+            <a className="text-link" href="https://f1.erslabs.net">
+              f1.erslabs.net
+            </a>
           </div>
         </section>
 
