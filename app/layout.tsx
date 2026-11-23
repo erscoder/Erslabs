@@ -16,7 +16,7 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 })
 
-const title = 'ErsLabs | A software lab that ships'
+const title = 'ErsLabs | Raw problem in. Shipped software out.'
 const description =
   'ErsLabs builds custom web apps, SaaS platforms, dashboards, internal tools, AI features and integrations. Senior engineers, production in weeks, a direct line to the founders.'
 
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title,
     description,
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'ErsLabs, a software lab that ships' }],
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'ErsLabs, a software lab' }],
     type: 'website',
     url: 'https://erslabs.net',
     locale: 'en_US',
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#08100D',
+  themeColor: '#030806',
   colorScheme: 'dark',
 }
 

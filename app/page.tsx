@@ -1,6 +1,19 @@
 import { ContactForm } from '@/components/ContactForm'
 import { Logo } from '@/components/Logo'
-import { TyreLab } from '@/components/TyreLab'
+import { Reactor } from '@/components/Reactor'
+import { SceneRail } from '@/components/SceneRail'
+
+// One entry per scene. The order is the order of the [data-scene] sections
+// and of SCENES in lib/reactor/engine.ts.
+const scenes = [
+  { id: 'top', label: 'Reagent' },
+  { id: 'studio', label: 'Studio' },
+  { id: 'f1', label: 'F1 ULTIMATE' },
+  { id: 'capline', label: 'Capline' },
+  { id: 'synapseia', label: 'Synapseia Network' },
+  { id: 'process', label: 'Process' },
+  { id: 'contact', label: 'Contact' },
+]
 
 const services = [
   {
@@ -57,6 +70,27 @@ const steps = [
   },
 ]
 
+function Flask() {
+  return (
+    <svg className="flask-still" viewBox="0 0 112 150" fill="none" aria-hidden="true">
+      <g stroke="#10B981" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M 32 38 L 64 38 M 38 38 L 38 66 L 12 124 Q 8 138 22 138 L 90 138 Q 104 138 100 124 L 64 66 L 64 38" />
+        <path d="M 22 102 Q 32 96 50 98 T 88 102" strokeWidth="1.2" />
+      </g>
+      <path
+        d="M 22 102 Q 32 96 50 98 T 88 102 L 96 124 Q 96 134 86 134 L 24 134 Q 14 134 14 124 Z"
+        fill="#10B981"
+        fillOpacity="0.18"
+      />
+      <circle cx="32" cy="86" r="2" fill="#10B981" fillOpacity="0.7" />
+      <circle cx="48" cy="74" r="1.5" fill="#10B981" fillOpacity="0.6" />
+      <circle cx="42" cy="58" r="1.2" fill="#10B981" fillOpacity="0.5" />
+      <circle cx="56" cy="48" r="1" fill="#10B981" fillOpacity="0.4" />
+      <circle cx="52" cy="32" r="1.1" fill="#10B981" fillOpacity="0.3" />
+    </svg>
+  )
+}
+
 export default function Home() {
   return (
     <>
@@ -64,85 +98,101 @@ export default function Home() {
         Skip to content
       </a>
 
-      <header className="site-header">
-        <div className="wrap site-header-row">
-          <a href="#top" className="logo-link" aria-label="ErsLabs, back to top">
-            <Logo className="logo" />
-          </a>
-          <nav aria-label="Primary" className="site-nav">
-            <a href="#services">Services</a>
-            <a href="#projects">Lab</a>
-            <a href="#process">Process</a>
-          </nav>
-          <a href="#contact" className="btn btn-primary btn-small">
-            Book a free call
-          </a>
-        </div>
+      <Reactor />
+      <div className="veil" aria-hidden="true" />
+
+      <header className="top">
+        <a href="#top" className="logo-link" aria-label="ErsLabs, back to top">
+          <Logo className="logo" />
+        </a>
+        <a href="#contact" className="btn btn-primary btn-small">
+          Book a free call
+        </a>
       </header>
 
+      <SceneRail items={scenes} />
+
+      <p className="hud" aria-hidden="true">
+        <span data-hud-scene>00 / Reagent</span>
+        <span data-hud-count>WebGL2</span>
+        <span className="hud-hint">move to stir · click to pulse</span>
+      </p>
+
       <main id="main">
-        <section id="top" className="hero wrap">
-          <div className="hero-copy">
+        <section id="top" data-scene="Reagent" className="scene scene-l hero">
+          <Flask />
+          <div className="col">
+            <p className="tag">
+              <span>00</span> ErsLabs, a software lab
+            </p>
             <h1>
-              A software lab <strong>that ships.</strong>
+              Raw problem in. <strong>Shipped software</strong> out.
             </h1>
             <p className="lead">
-              Custom web apps, SaaS, dashboards, internal tools and AI features. Built by senior engineers,
-              in production in weeks.
+              Custom web apps, SaaS, dashboards, internal tools, AI features and integrations. Built by senior
+              engineers, in production in weeks.
             </p>
             <div className="actions">
               <a href="#contact" className="btn btn-primary">
                 Book a free call
               </a>
-              <a href="#projects" className="btn btn-ghost">
-                See what we shipped
+              <a href="#f1" className="btn btn-ghost">
+                See what the lab shipped
               </a>
             </div>
+            <p className="cue">Scroll to run the reaction</p>
           </div>
-          <TyreLab />
         </section>
 
-        <section id="services" className="section wrap">
-          <h2 className="reveal">What we build for clients</h2>
-          <p className="section-lead reveal">
-            You describe the bottleneck. We ship the software that removes it.
-          </p>
-          <ul className="services">
-            {services.map((s) => (
-              <li key={s.title} className="reveal">
-                <h3>{s.title}</h3>
-                <p>{s.text}</p>
+        <section id="studio" data-scene="Studio" className="scene scene-r">
+          <div className="col">
+            <p className="tag">
+              <span>01</span> The studio, for clients
+            </p>
+            <h2>
+              You describe the bottleneck. <strong>We give it a structure and ship it.</strong>
+            </h2>
+            <ul className="services">
+              {services.map((s, i) => (
+                <li key={s.title}>
+                  <span className="idx">{'0' + (i + 1)}</span>
+                  <h3>{s.title}</h3>
+                  <p>{s.text}</p>
+                </li>
+              ))}
+            </ul>
+            <ul className="claims" aria-label="How we work with clients">
+              <li>
+                <strong>Senior engineers</strong> own your project from the first call.
               </li>
-            ))}
-          </ul>
+              <li>
+                Production <strong>in weeks, not quarters</strong>.
+              </li>
+              <li>
+                A <strong>direct line to the founders</strong>, with no account manager in between.
+              </li>
+            </ul>
+          </div>
         </section>
 
-        <section className="statement" aria-label="How we work with clients">
-          <p className="wrap reveal">
-            <strong>Senior engineers</strong> own your project from the first call. Production{' '}
-            <strong>in weeks, not quarters</strong>. And a <strong>direct line to the founders</strong>, with
-            no account manager in between.
-          </p>
-        </section>
-
-        <section id="projects" className="section wrap">
-          <h2 className="reveal">What the lab ships</h2>
-          <p className="section-lead reveal">Products we design, build and run ourselves.</p>
-
-          <article className="product product-f1 reveal">
-            <div className="product-copy">
-              <h3>F1 ULTIMATE</h3>
-              <p className="status">No public URL yet</p>
-              <p>
-                A browser Formula 1 racing simulator in Three.js and TypeScript. The vehicle model covers
-                Pacejka tyres, aero, an 8-speed gearbox, tyre temperature and wear, and damage. Circuits are
-                generated from OpenStreetMap and DEM/LiDAR elevation data.
-              </p>
-              <p>
-                Built by AI coding agents orchestrated through specs, cross-model review and automated merge
-                gates.
-              </p>
-            </div>
+        <section id="f1" data-scene="F1 ULTIMATE" className="scene scene-l">
+          <div className="col">
+            <p className="tag">
+              <span>02</span> Lab product · No public URL yet
+            </p>
+            <h2>
+              F1 ULTIMATE. <strong>A Formula 1 simulator in a browser tab.</strong>
+            </h2>
+            <p>
+              A racing simulator in Three.js and TypeScript. A rigid-body vehicle model with Pacejka tyres,
+              aero, an 8-speed gearbox, tyre temperature and wear, and damage runs in a Web Worker, shared by
+              the player and 21 AI drivers. The circuits are generated from OpenStreetMap and DEM/LiDAR
+              elevation data.
+            </p>
+            <p>
+              Built by AI coding agents orchestrated through specs, cross-model review and automated merge
+              gates.
+            </p>
             <dl className="figures">
               {f1Figures.map((f) => (
                 <div key={f.value}>
@@ -151,14 +201,31 @@ export default function Home() {
                 </div>
               ))}
             </dl>
-          </article>
+            <p className="note">
+              The circuit beside this text is a sketch drawn for this page: 22 cars on a small lap simulation.
+              It is not footage of the game.
+            </p>
+          </div>
+        </section>
 
-          <article className="product product-capline reveal">
+        <section id="capline" data-scene="Capline" className="scene scene-r">
+          <div className="col">
+            <p className="tag">
+              <span>03</span> Lab product · Launching
+            </p>
+            <h2>
+              Capline. <strong>Captions written on the phone, so no audio leaves it.</strong>
+            </h2>
+            <p>
+              An Android video editor that writes the captions on the device. Speech recognition runs locally
+              with whisper.cpp.
+            </p>
+            <p className="stack">Kotlin · Jetpack Compose · Media3 · Hilt</p>
             <a className="shot" href="https://capline.erslabs.net" aria-label="Open the Capline website">
               <img
                 src="/screenshots/capline-landing-1200.webp"
                 srcSet="/screenshots/capline-landing-720.webp 720w, /screenshots/capline-landing-1200.webp 1200w"
-                sizes="(min-width: 900px) 56vw, 100vw"
+                sizes="(min-width: 960px) 44vw, 92vw"
                 width={1200}
                 height={750}
                 loading="lazy"
@@ -166,53 +233,46 @@ export default function Home() {
                 alt="The Capline website: captions that write themselves, on your phone"
               />
             </a>
-            <div className="product-copy">
-              <h3>Capline</h3>
-              <p className="status">Launching</p>
-              <p>
-                An Android video editor that writes the captions on the device. Speech recognition runs
-                locally with whisper.cpp, so no audio leaves the phone.
-              </p>
-              <p className="stack">Kotlin, Jetpack Compose, Media3, Hilt</p>
-              <a className="text-link" href="https://capline.erslabs.net">
-                capline.erslabs.net
-              </a>
-            </div>
-          </article>
+            <a className="text-link" href="https://capline.erslabs.net">
+              capline.erslabs.net
+            </a>
+          </div>
+        </section>
 
-          <article className="product product-synapseia reveal">
-            <div className="product-head">
-              <div className="product-copy">
-                <h3>Synapseia Network</h3>
-                <p className="status">Shipped engineering</p>
-                <p>
-                  A peer-to-peer compute network where operators lend CPU and GPU to autonomous AI research
-                  agents.
-                </p>
+        <section id="synapseia" data-scene="Synapseia Network" className="scene scene-l">
+          <div className="col">
+            <p className="tag">
+              <span>04</span> Lab product · Shipped engineering
+            </p>
+            <h2>
+              Synapseia Network. <strong>Peers lend compute to autonomous research agents.</strong>
+            </h2>
+            <p>
+              A peer-to-peer compute network where operators lend CPU and GPU to autonomous AI research
+              agents.
+            </p>
+            <ul className="parts">
+              <li>NestJS coordinator</li>
+              <li>LangGraph agents on Ollama, over a libp2p mesh</li>
+              <li>Tauri and Rust desktop app</li>
+              <li>Four Solana Anchor programs</li>
+              <li>Next.js dashboard</li>
+            </ul>
+            <dl className="figures figures-pair">
+              <div>
+                <dt>commits</dt>
+                <dd>2,300+</dd>
               </div>
-              <ul className="parts">
-                <li>NestJS coordinator</li>
-                <li>LangGraph agents on Ollama, over a libp2p mesh</li>
-                <li>Tauri and Rust desktop app</li>
-                <li>Four Solana Anchor programs</li>
-                <li>Next.js dashboard</li>
-              </ul>
-              <dl className="figures figures-pair">
-                <div>
-                  <dt>commits</dt>
-                  <dd>2,300+</dd>
-                </div>
-                <div>
-                  <dt>automated tests</dt>
-                  <dd>9,300+</dd>
-                </div>
-              </dl>
-            </div>
+              <div>
+                <dt>automated tests</dt>
+                <dd>9,300+</dd>
+              </div>
+            </dl>
             <div className="shot">
               <img
                 src="/screenshots/synapseia-dashboard-1720.webp"
                 srcSet="/screenshots/synapseia-dashboard-960.webp 960w, /screenshots/synapseia-dashboard-1720.webp 1720w"
-                sizes="(min-width: 1400px) 1320px, 94vw"
+                sizes="(min-width: 960px) 44vw, 92vw"
                 width={1720}
                 height={950}
                 loading="lazy"
@@ -220,27 +280,37 @@ export default function Home() {
                 alt="The Synapseia Network dashboard: compute units, active nodes, the peer-to-peer network and a node graph"
               />
             </div>
-          </article>
+          </div>
         </section>
 
-        <section id="process" className="section wrap">
-          <h2 className="reveal">From first call to production</h2>
-          <ol className="steps">
-            {steps.map((s) => (
-              <li key={s.title} className="reveal">
-                <h3>{s.title}</h3>
-                <p>{s.text}</p>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        <section id="contact" className="section contact wrap">
-          <div className="contact-copy">
-            <h2>Book a free call</h2>
-            <p className="section-lead">
-              Tell us what is slowing you down. We reply within 24 hours with next steps.
+        <section id="process" data-scene="Process" className="scene scene-r">
+          <div className="col">
+            <p className="tag">
+              <span>05</span> Process
             </p>
+            <h2>
+              From first call <strong>to production.</strong>
+            </h2>
+            <ol className="steps">
+              {steps.map((s) => (
+                <li key={s.title}>
+                  <h3>{s.title}</h3>
+                  <p>{s.text}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        <section id="contact" data-scene="Contact" className="scene scene-wide contact">
+          <div className="col">
+            <p className="tag">
+              <span>06</span> Contact
+            </p>
+            <h2>
+              Pour your problem in. <strong>Book a free call.</strong>
+            </h2>
+            <p className="lead">Tell us what is slowing you down. We reply within 24 hours with next steps.</p>
             <dl className="contact-facts">
               <div>
                 <dt>Email</dt>
@@ -265,18 +335,16 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="site-footer">
-        <div className="wrap site-footer-row">
-          <Logo className="logo" />
-          <nav aria-label="Footer">
-            <a href="#services">Services</a>
-            <a href="#projects">Lab</a>
-            <a href="#process">Process</a>
-            <a href="#contact">Contact</a>
-            <a href="https://erscoder.com">erscoder.com</a>
-          </nav>
-          <p>© 2026 ErsLabs</p>
-        </div>
+      <footer className="foot">
+        <Logo className="logo" />
+        <nav aria-label="Footer">
+          <a href="#studio">Studio</a>
+          <a href="#f1">Lab</a>
+          <a href="#process">Process</a>
+          <a href="#contact">Contact</a>
+          <a href="https://erscoder.com">erscoder.com</a>
+        </nav>
+        <p>© 2026 ErsLabs</p>
       </footer>
     </>
   )
