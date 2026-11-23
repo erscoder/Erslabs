@@ -1,10 +1,12 @@
-import type { Metadata } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import type { Metadata, Viewport } from 'next'
+import { Manrope, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({
+// Manrope is the typeface of the ErsLabs wordmark, so the whole site speaks
+// in the logo's voice: light for statements, medium for emphasis.
+const manrope = Manrope({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-manrope',
   display: 'swap',
 })
 
@@ -14,15 +16,28 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 })
 
+const title = 'ErsLabs | A software lab that ships'
+const description =
+  'ErsLabs builds custom web apps, SaaS platforms, dashboards, internal tools, AI features and integrations. Senior engineers, production in weeks, a direct line to the founders.'
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://erslabs.net'),
-  title: 'ErsLabs | We Build Whatever Fixes Your Problem',
-  description: 'ErsLabs ships custom web apps, SaaS platforms, dashboards, internal tools, AI features and integrations. Senior engineers, production in weeks not quarters.',
-  keywords: ['custom software development', 'web application development', 'SaaS development', 'internal tools', 'business automation', 'AI integration', 'dashboards', 'software development agency', 'custom software', 'Next.js development', 'React development'],
+  title,
+  description,
+  keywords: [
+    'custom software development',
+    'web application development',
+    'SaaS development',
+    'internal tools',
+    'business automation',
+    'AI integration',
+    'dashboards',
+    'software studio',
+  ],
   openGraph: {
-    title: 'ErsLabs | We Build Whatever Fixes Your Problem',
-    description: 'Custom web apps, SaaS, dashboards, internal tools, AI features and integrations. Senior engineers shipping production in weeks, not quarters.',
-    images: ['/og-image.png'],
+    title,
+    description,
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'ErsLabs, a software lab that ships' }],
     type: 'website',
     url: 'https://erslabs.net',
     locale: 'en_US',
@@ -30,14 +45,18 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ErsLabs | We Build Whatever Fixes Your Problem',
-    description: 'Custom software that removes the bottleneck. Senior engineers, production in weeks.',
+    title,
+    description,
     images: ['/og-image.png'],
   },
   robots: { index: true, follow: true },
   alternates: { canonical: 'https://erslabs.net' },
   icons: { icon: '/favicon.svg' },
-  other: { 'theme-color': '#05080F' },
+}
+
+export const viewport: Viewport = {
+  themeColor: '#08100D',
+  colorScheme: 'dark',
 }
 
 export default function RootLayout({
@@ -46,7 +65,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${manrope.variable} ${jetbrainsMono.variable}`}>
       <head>
         <script
           type="application/ld+json"
@@ -56,15 +75,26 @@ export default function RootLayout({
               '@type': 'ProfessionalService',
               name: 'ErsLabs',
               url: 'https://erslabs.net',
-              description: 'Custom software development for businesses and operators. Web apps, SaaS, dashboards, internal tools, AI integrations.',
-              serviceType: ['Web Application Development', 'SaaS Development', 'Internal Tools & Automation', 'AI Integration', 'Dashboards & Analytics', 'Custom Software Development'],
+              logo: 'https://erslabs.net/logo.svg',
+              email: 'hello@erslabs.net',
+              founder: { '@type': 'Person', name: 'Enrique Rubio', url: 'https://erscoder.com' },
+              description:
+                'Custom software development for businesses and operators. Web apps, SaaS, dashboards, internal tools, AI integrations.',
+              serviceType: [
+                'Web Application Development',
+                'SaaS Development',
+                'Internal Tools & Automation',
+                'AI Integration',
+                'Dashboards & Analytics',
+                'Custom Software Development',
+              ],
               areaServed: 'Worldwide',
               priceRange: '€1,000 to €30,000+',
             }),
           }}
         />
       </head>
-      <body className="font-sans antialiased">{children}</body>
+      <body>{children}</body>
     </html>
   )
 }
