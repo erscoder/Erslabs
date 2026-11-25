@@ -302,11 +302,12 @@ export default function Home() {
               <span>05</span> Lab product · Prototype, measured
             </p>
             <h2>
-              Menhir. <strong>A mineable coin whose signatures are made of hashes.</strong>
+              Menhir. <strong>Bitcoin&apos;s design, rebuilt for the quantum era.</strong>
             </h2>
             <p>
-              A fork of Bitcoin Core in which coins are spent with stateless hash-based signatures (SLH-DSA,
-              FIPS 205). Mining, commitments and signatures rest on one family of hash functions, SHA-2, and no
+              A large quantum computer breaks the elliptic-curve signatures that guard today&apos;s coins. Menhir
+              has none. It is a fork of Bitcoin Core in which coins are spent with stateless hash-based
+              signatures (SLH-DSA, FIPS 205). Mining, commitments and signatures rest on one family of hash functions, SHA-2, and no
               elliptic curve is reachable from the ledger. Outputs that are not post-quantum are rejected by
               consensus from the first block.
             </p>
