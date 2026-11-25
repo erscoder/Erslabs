@@ -125,7 +125,6 @@ export default function Home() {
       <p className="hud" aria-hidden="true">
         <span data-hud-scene>00 / Reagent</span>
         <span data-hud-count>WebGL2</span>
-        <span className="hud-hint">move to stir · click to pulse</span>
       </p>
 
       <main id="main">

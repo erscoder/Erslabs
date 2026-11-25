@@ -18,10 +18,7 @@ uniform float uSize;
 uniform float uAlphaA;
 uniform float uAlphaB;
 uniform float uHalo;
-uniform float uAspect;
 uniform float uCars[${CARS}];
-uniform vec3 uPointer;
-uniform vec4 uShock;
 
 out float vGlow;
 out float vAlpha;
@@ -181,22 +178,7 @@ void main() {
   float hot = mix(ha, hb, e);
 
   vec4 clip = uVP * vec4(world, 1.0);
-  vec2 ndc = clip.xy / clip.w;
-  vec2 asp = vec2(uAspect, 1.0);
-
-  // The cursor stirs the liquid.
-  vec2 d = (ndc - uPointer.xy) * asp;
-  float push = uPointer.z * exp(-dot(d, d) * 9.0);
-  vec2 dir = normalize(d + vec2(1e-5));
-  ndc += (dir * 0.2 + vec2(-dir.y, dir.x) * 0.12) * push / asp;
-
-  // A click sends a ring through it.
-  vec2 ds = (ndc - uShock.xy) * asp;
-  float ring = exp(-pow((length(ds) - uShock.z) * 6.0, 2.0)) * uShock.w;
-  ndc += normalize(ds + vec2(1e-5)) * ring * 0.1 / asp;
-  glow += ring * 1.6 + push * 0.5;
-
-  gl_Position = vec4(ndc * clip.w, clip.z, clip.w);
+  gl_Position = clip;
   float size = uSize * (0.55 + aSeed.w * 0.9) * (1.0 + glow * 0.45) * (5.0 / clip.w);
   gl_PointSize = mix(size, size * 7.0, uHalo);
   vGlow = glow;

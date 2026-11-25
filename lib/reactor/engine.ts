@@ -120,10 +120,7 @@ export async function start(canvas: HTMLCanvasElement): Promise<() => void> {
     alphaA: uniform('uAlphaA'),
     alphaB: uniform('uAlphaB'),
     halo: uniform('uHalo'),
-    aspect: uniform('uAspect'),
     cars: uniform('uCars'),
-    pointer: uniform('uPointer'),
-    shock: uniform('uShock'),
   }
 
   const vao = gl.createVertexArray()
@@ -186,7 +183,6 @@ export async function start(canvas: HTMLCanvasElement): Promise<() => void> {
     vp[14] = vp[10] * -CAMERA + (2 * far * near) / (near - far)
     vp[15] = CAMERA
     gl!.uniformMatrix4fv(u.vp, false, vp)
-    gl!.uniform1f(u.aspect, aspect)
     gl!.uniform1f(u.size, Math.max(1.3, (height / 900) * 1.75))
     dirty = true
   }
@@ -254,8 +250,6 @@ export async function start(canvas: HTMLCanvasElement): Promise<() => void> {
   let clock = 0
   let disposed = false
 
-  const pointer = { x: 0, y: 0, strength: 0, wanted: 0, moved: 0 }
-  const shock = { x: 0, y: 0, at: -10 }
   const mA = new Float32Array(16)
   const mB = new Float32Array(16)
 
@@ -286,8 +280,6 @@ export async function start(canvas: HTMLCanvasElement): Promise<() => void> {
         const station = Math.floor(cars[i] * circuit.samples) % circuit.samples
         cars[i] = (cars[i] + circuit.speed[station] * skill[i] * dt) % 1
       }
-      pointer.wanted = clock - pointer.moved < 0.6 ? 1 : pointer.wanted * 0.97
-      pointer.strength += (pointer.wanted - pointer.strength) * 0.08
     }
 
     const a = Math.min(SCENES.length - 1, Math.max(0, Math.floor(current)))
@@ -320,9 +312,6 @@ export async function start(canvas: HTMLCanvasElement): Promise<() => void> {
       gl!.uniform1f(u.alphaA, SCENES[a].alpha * dim)
       gl!.uniform1f(u.alphaB, SCENES[b].alpha * dim)
       gl!.uniform1fv(u.cars, cars)
-      gl!.uniform3f(u.pointer, pointer.x, pointer.y, calm ? 0 : pointer.strength)
-      const age = clock - shock.at
-      gl!.uniform4f(u.shock, shock.x, shock.y, age * 1.5, calm ? 0 : Math.max(0, 1 - age / 1.5))
       gl!.clear(gl!.COLOR_BUFFER_BIT)
       gl!.uniform1f(u.halo, 0)
       gl!.drawArrays(gl!.POINTS, 0, N)
@@ -340,16 +329,6 @@ export async function start(canvas: HTMLCanvasElement): Promise<() => void> {
     }
   }
 
-  function onPointerMove(event: PointerEvent) {
-    pointer.x = (event.clientX / window.innerWidth) * 2 - 1
-    pointer.y = 1 - (event.clientY / window.innerHeight) * 2
-    pointer.moved = clock
-  }
-  function onPointerDown(event: PointerEvent) {
-    shock.x = (event.clientX / window.innerWidth) * 2 - 1
-    shock.y = 1 - (event.clientY / window.innerHeight) * 2
-    shock.at = clock
-  }
   function onResize() {
     resize()
     wake()
@@ -368,16 +347,12 @@ export async function start(canvas: HTMLCanvasElement): Promise<() => void> {
     disposed = true
     cancelAnimationFrame(frame)
     root.classList.remove('gl')
-    window.removeEventListener('pointermove', onPointerMove)
-    window.removeEventListener('pointerdown', onPointerDown)
     window.removeEventListener('resize', onResize)
     document.removeEventListener('visibilitychange', wake)
     reduced.removeEventListener('change', onMotionChange)
     canvas.removeEventListener('webglcontextlost', onContextLost)
   }
 
-  window.addEventListener('pointermove', onPointerMove, { passive: true })
-  window.addEventListener('pointerdown', onPointerDown, { passive: true })
   window.addEventListener('resize', onResize)
   document.addEventListener('visibilitychange', wake)
   reduced.addEventListener('change', onMotionChange)
