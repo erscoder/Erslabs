@@ -3,7 +3,7 @@
 ## 2026-11-25
 
 - Reactor: the pointer no longer stirs the particles and a click no longer sends a ring; the hint is gone from the HUD.
-- Menhir scene: headline and opening sentence now lead with the quantum threat.
+- Menhir scene: headline "The coin built for the quantum era" and an opening sentence that leads with the quantum threat.
 - New scene 05, Menhir: the hash-signature coin prototype with its measured figures, a link to https://menhir.erslabs.net and a particle block of 30 x 12 x 45 cells. Process and Contact move to 06 and 07.
 
 ## 2026-11-23

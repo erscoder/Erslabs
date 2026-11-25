@@ -301,7 +301,7 @@ export default function Home() {
               <span>05</span> Lab product · Prototype, measured
             </p>
             <h2>
-              Menhir. <strong>Bitcoin&apos;s design, rebuilt for the quantum era.</strong>
+              Menhir. <strong>The coin built for the quantum era.</strong>
             </h2>
             <p>
               A large quantum computer breaks the elliptic-curve signatures that guard today&apos;s coins. Menhir
