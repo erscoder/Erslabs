@@ -11,6 +11,7 @@ const scenes = [
   { id: 'f1', label: 'F1 ULTIMATE' },
   { id: 'capline', label: 'Capline' },
   { id: 'synapseia', label: 'Synapseia Network' },
+  { id: 'menhir', label: 'Menhir' },
   { id: 'process', label: 'Process' },
   { id: 'contact', label: 'Contact' },
 ]
@@ -49,6 +50,15 @@ const f1Figures = [
   { value: '19 days', label: 'to build it, start to finish' },
   { value: '858', label: 'commits through automated merge gates' },
   { value: '~2,300', label: 'unit tests, plus 233 end-to-end tests' },
+]
+
+const menhirFigures = [
+  { value: '16,224', label: 'bytes in one signature, against 64 for Schnorr' },
+  { value: '237', label: 'payments in a full block of 4,000,000 weight units' },
+  { value: '253.59 µs', label: 'to verify one signature' },
+  { value: '278.83 ms', label: 'to sign one payment' },
+  { value: '66 / 66', label: 'NIST ACVP vectors passed' },
+  { value: '100 / 100', label: 'signatures cross-checked with OpenSSL, in each direction' },
 ]
 
 const steps = [
@@ -286,10 +296,46 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="process" data-scene="Process" className="scene scene-r">
+        <section id="menhir" data-scene="Menhir" className="scene scene-r">
           <div className="col">
             <p className="tag">
-              <span>05</span> Process
+              <span>05</span> Lab product · Prototype, measured
+            </p>
+            <h2>
+              Menhir. <strong>A mineable coin whose signatures are made of hashes.</strong>
+            </h2>
+            <p>
+              A fork of Bitcoin Core in which coins are spent with stateless hash-based signatures (SLH-DSA,
+              FIPS 205). Mining, commitments and signatures rest on one family of hash functions, SHA-2, and no
+              elliptic curve is reachable from the ledger. Outputs that are not post-quantum are rejected by
+              consensus from the first block.
+            </p>
+            <p>
+              The price is size. The prototype measures what a signature of that size costs before any capacity
+              decision is taken.
+            </p>
+            <dl className="figures">
+              {menhirFigures.map((f) => (
+                <div key={f.value}>
+                  <dt>{f.label}</dt>
+                  <dd>{f.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="note">
+              No network exists and no coin is offered: this is a prototype on a private test chain. The block
+              beside this text is a sketch drawn for this page.
+            </p>
+            <a className="text-link" href="https://menhir.erslabs.net">
+              menhir.erslabs.net
+            </a>
+          </div>
+        </section>
+
+        <section id="process" data-scene="Process" className="scene scene-l">
+          <div className="col">
+            <p className="tag">
+              <span>06</span> Process
             </p>
             <h2>
               From first call <strong>to production.</strong>
@@ -308,7 +354,7 @@ export default function Home() {
         <section id="contact" data-scene="Contact" className="scene scene-wide contact">
           <div className="col">
             <p className="tag">
-              <span>06</span> Contact
+              <span>07</span> Contact
             </p>
             <h2>
               Pour your problem in. <strong>Book a free call.</strong>

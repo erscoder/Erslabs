@@ -437,3 +437,36 @@ export function vortex(n: number, rand: Rng): Float32Array {
   for (let i = 0; i < n; i++) put(out, i, rand() * Math.PI * 2, rand(), rand(), pack(0, rand()))
   return out
 }
+
+/* ---------- 6. A standing block: one cell per byte of a hash-based signature ---------- */
+
+export function stone(n: number, rand: Rng): Float32Array {
+  const out = new Float32Array(n * 4)
+  // 16,224 cells: 28 layers of hypertree, 17 of FORS, and the 24-byte randomizer as a cap.
+  const w = 30
+  const d = 12
+  const h = 45
+  const capW = 2
+  const cell = 2.3 / (h + 1)
+  const body = w * d * h
+  const j = cell * 0.2
+  for (let i = 0; i < n; i++) {
+    const idx = Math.floor(rand() * (body + capW * d))
+    const inCap = idx >= body
+    const c = inCap ? idx - body : idx
+    const span = inCap ? capW : w
+    const ix = c % span
+    const iz = Math.floor(c / span) % d
+    const iy = inCap ? h : Math.floor(c / (w * d))
+    const kind = inCap ? 2 : iy < 28 ? 0 : 1
+    put(
+      out,
+      i,
+      (ix - (w - 1) / 2) * cell + (rand() - 0.5) * j,
+      (iy - h / 2) * cell + (rand() - 0.5) * j,
+      (iz - (d - 1) / 2) * cell + (rand() - 0.5) * j,
+      pack(kind, iy / h),
+    )
+  }
+  return out
+}

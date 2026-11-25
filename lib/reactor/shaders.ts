@@ -129,7 +129,7 @@ vec3 shape(int id, vec4 p, vec4 sd, out float glow, out float alpha, out float h
       hot = pulse * 0.25;
       alpha = 0.2 + pulse * 0.7;
     }
-  } else {
+  } else if (id == 5) {
     // The vortex: a wide, uncertain cloud narrows into one line.
     float h = fract(p.y + uTime * 0.03 * (0.6 + 0.8 * f));
     float arm = floor(p.x * 3.0 / 6.2831853) * 2.0943951;
@@ -144,6 +144,15 @@ vec3 shape(int id, vec4 p, vec4 sd, out float glow, out float alpha, out float h
     }
     glow = 0.25 + 0.9 * h * h + ring * 1.4;
     alpha = (0.55 + ring * 0.45) * smoothstep(0.0, 0.04, h) * (1.0 - smoothstep(0.96, 1.0, h));
+  } else {
+    // The stone: a reading line descends through the layers of one signature.
+    float line = 1.2 - fract(uTime * 0.11) * 1.4;
+    float sweep = exp(-pow((f - line) * 16.0, 2.0));
+    float band = mod(floor(f * 11.25 + 0.01), 2.0);
+    float base = k < 0.5 ? 0.2 + 0.1 * band : (k < 1.5 ? 0.42 : 1.2);
+    glow = base + sweep * 1.5;
+    hot = sweep * 0.2;
+    alpha = 0.45 + sweep * 0.5;
   }
   return q;
 }

@@ -1,5 +1,5 @@
 import { CARS, FRAG, VERT } from './shaders'
-import { flask, lattice, makeRng, mesh, phone, track, vortex } from './shapes'
+import { flask, lattice, makeRng, mesh, phone, stone, track, vortex } from './shapes'
 
 /**
  * The reactor: one cloud of particles on a fixed WebGL2 canvas. Each section
@@ -26,7 +26,8 @@ const SCENES: Scene[] = [
   { shape: 2, side: 1, scale: 1.0, pitch: 0.92, spin: 0.07, sway: 0, alpha: 1 },
   { shape: 3, side: -1, scale: 1.0, pitch: 0.0, spin: 0, sway: 0.38, alpha: 1 },
   { shape: 4, side: 1, scale: 0.95, pitch: 0.2, spin: 0.12, sway: 0, alpha: 1 },
-  { shape: 5, side: -1, scale: 0.95, pitch: 0.16, spin: 0, sway: 0, alpha: 1 },
+  { shape: 6, side: -1, scale: 0.92, pitch: 0.16, spin: 0.14, sway: 0, alpha: 1 },
+  { shape: 5, side: 1, scale: 0.95, pitch: 0.16, spin: 0, sway: 0, alpha: 1 },
   { shape: 0, side: 0, scale: 1.2, pitch: 0.14, spin: 0.16, sway: 0, alpha: 0.3 },
 ]
 
@@ -89,7 +90,7 @@ export async function start(canvas: HTMLCanvasElement): Promise<() => void> {
 
   const rand = makeRng(20261123)
   const circuit = track(N, rand)
-  const shapes = [flask(N, rand), lattice(N, rand), circuit.points, phone(N, rand, family), mesh(N, rand), vortex(N, rand)]
+  const shapes = [flask(N, rand), lattice(N, rand), circuit.points, phone(N, rand, family), mesh(N, rand), vortex(N, rand), stone(N, rand)]
   const seeds = new Float32Array(N * 4)
   for (let i = 0; i < seeds.length; i++) seeds[i] = rand()
 
